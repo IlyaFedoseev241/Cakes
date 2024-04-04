@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_menu">
+
+    <action
+        android:id="@+id/action_global_navigation_to_your_profile"
+        app:destination="@id/navigation_your_profile" />
+    <action
+        android:id="@+id/action_global_navigation_to_menu"
+        app:destination="@id/navigation_menu" />
+    <action
+        android:id="@+id/action_global_navigation_to_cart"
+        app:destination="@id/navigation_cart" />
+    <action
+        android:id="@+id/action_global_navigation_to_phone"
+        app:destination="@id/navigation_phone" />
+    <fragment
+        android:id="@+id/navigation_menu"
+        android:name="com.example.cakes.ui.home.HomeFragment"
+        android:label="@string/title_menu"
+        tools:layout="@layout/fragment_home" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_phone"
+        android:name="com.example.cakes.ui.profile.PhoneInputFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_phone_input">
+        <action
+            android:id="@+id/switchToCode"
+            app:destination="@id/navigation_code"/>
+        <action
+            android:id="@+id/phone_to_profile"
+            app:destination="@id/navigation_your_profile" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.example.cakes.ui.notifications.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_navigation_cart_to_navigation_date"
+            app:destination="@id/navigation_date" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_code"
+        android:name="com.example.cakes.ui.profile.CodeConfirmFragment"
+        android:label="Код"
+        tools:layout="@layout/fragment_code_confirm" >
+        <action
+            android:id="@+id/action_to_navigation_profile"
+            app:destination="@id/navigation_your_profile" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_your_profile"
+        android:name="com.example.cakes.ui.profile.ProfileFragment"
+        android:label="Ваш Профиль"
+        tools:layout="@layout/fragment_profile" >
+
+        <action
+            android:id="@+id/action_navigation_your_profile_to_navigation_menu"
+            app:destination="@id/navigation_menu"
+            app:popUpTo="@id/navigation_menu"
+            app:popExitAnim="@anim/fui_slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_date"
+        android:name="com.example.cakes.ui.notifications.DateFragment"
+        android:label="Выбор даты"
+        tools:layout="@layout/fragment_date"
+        >
+        <action
+            android:id="@+id/action_navigation_date_to_navigation_address"
+            app:destination="@id/navigation_address" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_address"
+        android:name="com.example.cakes.ui.notifications.AddressInputFragment"
+        android:label="Адрес доставки"
+        tools:layout="@layout/fragment_address_input"
+        >
+    </fragment>
+</navigation>
