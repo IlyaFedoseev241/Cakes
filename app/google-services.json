@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "267663031665",
+    "project_id": "the-candy-empire",
+    "storage_bucket": "the-candy-empire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267663031665:android:ac2d3fcf1802b9bd3f0ad0",
+        "android_client_info": {
+          "package_name": "com.example.cakes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwySlM3sTp0uLoEsSo_PRI5yOk50S7OXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
