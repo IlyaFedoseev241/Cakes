@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.cakes.User
+import com.example.data.database.User
 import com.example.cakes.databinding.FragmentCodeConfirmBinding
 
 class CodeConfirmFragment() : Fragment() {
@@ -52,7 +52,7 @@ class CodeConfirmFragment() : Fragment() {
         super.onStart()
         binding.checkCode.setOnClickListener {
             codeConfirmViewModel.enterCode(_id!!, binding.inputCode.text.toString(),callbacks!!)
-            val user = User(_id!!,"Не указано", phoneNumber!!)
+            val user = com.example.data.database.User(_id!!, "Не указано", phoneNumber!!)
             codeConfirmViewModel.insertUser(user)
             editor.putBoolean(IS_LOGGED, true).apply()
         }

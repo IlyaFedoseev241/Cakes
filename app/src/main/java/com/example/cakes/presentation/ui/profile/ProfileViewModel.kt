@@ -3,20 +3,20 @@ package com.example.cakes.presentation.ui.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.example.cakes.DatabaseRepository
-import com.example.cakes.User
+import com.example.data.repository.DatabaseRepository
+import com.example.data.database.User
 import kotlinx.coroutines.launch
 
 class ProfileViewModel : ViewModel() {
     val user = liveData {
-        emit(DatabaseRepository.get().loadUser())
+        emit(com.example.data.repository.DatabaseRepository.get().loadUser())
     }
     init {
-        DatabaseRepository.get()
+        com.example.data.repository.DatabaseRepository.get()
     }
-    fun updateUser(user: User){
+    fun updateUser(user: com.example.data.database.User){
         viewModelScope.launch {
-            DatabaseRepository.get().updateUser(user)
+            com.example.data.repository.DatabaseRepository.get().updateUser(user)
         }
     }
 }

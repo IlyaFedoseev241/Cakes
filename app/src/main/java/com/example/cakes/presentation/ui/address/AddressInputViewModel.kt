@@ -4,37 +4,37 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cakes.api.RequestOrderData
-import com.example.cakes.Cart
-import com.example.cakes.DatabaseRepository
-import com.example.cakes.domain.usecase.addressusecase.PostOrderUseCase
+import com.example.data.model.CartData
+import com.example.data.repository.DatabaseRepository
+import com.example.domain.model.OrderRequestDomain
+import com.example.domain.usecase.addressusecase.PostOrderUseCase
 import kotlinx.coroutines.launch
 
 
-class AddressInputViewModel(private val postOrderUseCase: PostOrderUseCase) : ViewModel() {
+class AddressInputViewModel(private val postOrderUseCase: com.example.domain.usecase.addressusecase.PostOrderUseCase) : ViewModel() {
 
     private var _token = MutableLiveData<String>()
     val token: LiveData<String> get() = _token
-    fun postOrder(requestOrderData: RequestOrderData){
+    fun postOrder(orderRequestDomain: com.example.domain.model.OrderRequestDomain){
         viewModelScope.launch {
-            _token.value = postOrderUseCase.execute(requestOrderData).token
+            _token.value = postOrderUseCase.execute(orderRequestDomain).token
         }
     }
-    val cartList: MutableLiveData<List<Cart>> = MutableLiveData()
+    val cartDataList: MutableLiveData<List<com.example.data.model.CartData>> = MutableLiveData()
 
 
 
     init {
 
-        DatabaseRepository.get().cartList.observeForever {
-            cartList.postValue(it)
+        com.example.data.repository.DatabaseRepository.get().cartDataList.observeForever {
+            cartDataList.postValue(it)
         }
         getAllCart()
     }
 
     fun getAllCart() {
         viewModelScope.launch {
-            DatabaseRepository.get().getAllCart()
+            com.example.data.repository.DatabaseRepository.get().getAllCart()
         }
     }
 

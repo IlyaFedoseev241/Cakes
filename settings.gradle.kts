@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Cakes"
 include(":app")
+include(":data")
+include(":domain")

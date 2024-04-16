@@ -1,7 +1,7 @@
 package com.example.cakes.presentation.ui.home
 
-import com.example.cakes.Product
+import com.example.domain.model.ProductDomain
 
 interface AddToCartClickListener {
-    fun addToCartClick(product: Product)
+    fun addToCartClick(productDomain: com.example.domain.model.ProductDomain)
 }

@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.cakes.presentation.MainActivity
+import com.example.cakes.MainActivity
 import com.example.cakes.R
-import com.example.cakes.User
+import com.example.data.database.User
 import com.example.cakes.databinding.FragmentPhoneInputBinding
 
 const val USER_SETTINGS = "UserSettings"
@@ -47,7 +47,7 @@ class PhoneInputFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         phoneInputViewModel.firebasePhoneProvider(callbacks!!, requireContext())
-        val admin = User("0", "Admin", "+79280372951")
+        val admin = com.example.data.database.User("0", "Admin", "+79280372951")
         binding.phoneForAdmin.setOnClickListener {
             phoneInputViewModel.insertUser(admin)
             editor.putBoolean(IS_LOGGED, true).apply()

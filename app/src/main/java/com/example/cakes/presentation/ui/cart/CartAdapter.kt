@@ -6,14 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.CartDomain
 import com.example.cakes.R
-import com.example.cakes.Cart
-import com.example.cakes.DatabaseRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class CartAdapter(private val cartItem:List<Cart>):RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(private val cartItem:List<com.example.domain.model.CartDomain>, private val deleteFromCartClickListener: DeleteFromCartClickListener):RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val inflater = LayoutInflater.from(parent.context).inflate(R.layout.cart_item,parent,false)
         return CartViewHolder(inflater)
@@ -29,9 +25,7 @@ class CartAdapter(private val cartItem:List<Cart>):RecyclerView.Adapter<CartAdap
         holder.cakeWeight.text = currentItem.cakeWeight
         holder.cakePrice.text = currentItem.cakePrice
         holder.deleteButton.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch{
-                DatabaseRepository.get().deleteItemFromCart(currentItem)
-            }
+            deleteFromCartClickListener.deleteFromCartClick(currentItem)
         }
     }
     class CartViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){

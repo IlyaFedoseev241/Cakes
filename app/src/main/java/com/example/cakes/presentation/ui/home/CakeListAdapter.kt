@@ -8,10 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.cakes.Product
+import com.example.domain.model.ProductDomain
 import com.example.cakes.R
 
-class CakeListAdapter(private val productItem: List<Product>, private val addToCartClickListener: AddToCartClickListener):RecyclerView.Adapter<CakeListAdapter.MyViewHolder>() {
+class CakeListAdapter(private val productDataItem: List<com.example.domain.model.ProductDomain>, private val addToCartClickListener: AddToCartClickListener):RecyclerView.Adapter<CakeListAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -22,16 +22,16 @@ class CakeListAdapter(private val productItem: List<Product>, private val addToC
     }
 
     override fun getItemCount(): Int {
-        return productItem.size
+        return productDataItem.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = productItem[position]
+        val currentItem = productDataItem[position]
         holder.productNameAd.text = currentItem.productName
         holder.productPriceAd.text = currentItem.productPrice
         Glide.with(holder.itemView.context).load(currentItem.productImage).into(holder.productImageAd)
         holder.addToCart.setOnClickListener {
-            addToCartClickListener.addToCartClick(productItem[position])
+            addToCartClickListener.addToCartClick(currentItem)
         }
     }
 

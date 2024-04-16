@@ -14,10 +14,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cakes.Product
+import com.example.data.model.CartData
+import com.example.data.repository.DatabaseRepository
+import com.example.data.model.ProductData
+import com.example.domain.model.ProductDomain
 import com.example.cakes.R
-import com.example.cakes.Cart
-import com.example.cakes.DatabaseRepository
 import com.example.cakes.databinding.FragmentHomeBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +28,7 @@ class HomeFragment : Fragment(), AddToCartClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private lateinit var productArrayList: List<Product>
+    private lateinit var productDataArrayList: List<com.example.data.model.ProductData>
     private lateinit var  homeViewModel:HomeViewModel
     private val binding get() = _binding!!
 
@@ -46,7 +47,7 @@ class HomeFragment : Fragment(), AddToCartClickListener {
         _binding!!.productsRecyclerview.hasFixedSize()
         layoutManager = LinearLayoutManager(activity)
         _binding!!.productsRecyclerview.layoutManager = layoutManager
-        productArrayList = listOf<Product>()
+        productDataArrayList = listOf<com.example.data.model.ProductData>()
 
 
         return root
@@ -65,7 +66,7 @@ class HomeFragment : Fragment(), AddToCartClickListener {
         _binding = null
     }
 
-    override fun addToCartClick(product: Product) {
+    override fun addToCartClick(productDomain: com.example.domain.model.ProductDomain) {
         val builder = AlertDialog.Builder(context)
         builder.setCancelable(true)
         val dialogView = LayoutInflater.from(context).inflate(R.layout.input_order, null)
@@ -78,7 +79,7 @@ class HomeFragment : Fragment(), AddToCartClickListener {
         val minusButton = dialogView.findViewById<ImageView>(R.id.input_minus)
         val buttonAddToCart = dialogView.findViewById<Button>(R.id.input_button_add_to_cart)
         //Summa
-        val cakePriceValue = product.productPrice.toString().toInt()
+        val cakePriceValue = productDomain.productPrice.toString().toInt()
         val cakeWeightValue = cakeWeight.text.toString().toInt()
         val result = cakePriceValue * cakeWeightValue
         cakePrice.text = result.toString()
@@ -95,18 +96,18 @@ class HomeFragment : Fragment(), AddToCartClickListener {
             val newPrice = cakePriceValue * kol
             cakePrice.text = newPrice.toString()
         }
-        cakeName.text = product.productName
+        cakeName.text = productDomain.productName
 
         val alert = builder.create()
         alert.show()
         buttonAddToCart.setOnClickListener {
-            val id = product.productID.toString()
+            val id = productDomain.productID.toString()
             val price = cakePrice.text.toString()
             val name = cakeName.text.toString()
             val weight = cakeWeight.text.toString()
-            val cart = Cart(0, id, name, price, weight)
+            val cartData = com.example.data.model.CartData(0, id, name, price, weight)
             CoroutineScope(Dispatchers.IO).launch {
-                DatabaseRepository.get().insertItemToCart(cart)
+                com.example.data.repository.DatabaseRepository.get().insertItemToCart(cartData)
             }
             alert.dismiss()
         }

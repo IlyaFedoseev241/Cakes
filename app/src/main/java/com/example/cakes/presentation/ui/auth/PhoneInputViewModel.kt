@@ -6,8 +6,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cakes.DatabaseRepository
-import com.example.cakes.User
+import com.example.data.repository.DatabaseRepository
+import com.example.data.database.User
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -64,14 +64,14 @@ class PhoneInputViewModel : ViewModel() {
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
-    fun insertUser(user: User){
+    fun insertUser(user: com.example.data.database.User){
         viewModelScope.launch {
-            DatabaseRepository.get().insertUser(user)
+            com.example.data.repository.DatabaseRepository.get().insertUser(user)
         }
     }
-    fun deleteUser(user: User){
+    fun deleteUser(user: com.example.data.database.User){
         viewModelScope.launch {
-            DatabaseRepository.get().deleteUser(user)
+            com.example.data.repository.DatabaseRepository.get().deleteUser(user)
         }
     }
 

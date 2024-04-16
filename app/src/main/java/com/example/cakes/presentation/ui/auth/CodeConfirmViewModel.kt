@@ -3,8 +3,8 @@ package com.example.cakes.presentation.ui.auth
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cakes.DatabaseRepository
-import com.example.cakes.User
+import com.example.data.repository.DatabaseRepository
+import com.example.data.database.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.coroutines.launch
@@ -24,9 +24,9 @@ class CodeConfirmViewModel : ViewModel() {
         }
     }
 
-    fun insertUser(user: User){
+    fun insertUser(user: com.example.data.database.User){
         viewModelScope.launch {
-            DatabaseRepository.get().insertUser(user)
+            com.example.data.repository.DatabaseRepository.get().insertUser(user)
         }
     }
 }
